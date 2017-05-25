@@ -10,29 +10,35 @@ const connectionString = process.env.DATABASE_connectionString || `postgres://lo
 console.log(chalk.yellow(`Opening database connection to ${connectionString}`));
 
 // create the database instance that can be used in other database files
-const db = module.exports = new Sequelize(connectionString, {
-  logging: debug, // export DEBUG=sql in the environment to get SQL queries 
+const db = new Sequelize(connectionString, {
+  logging: debug, // export DEBUG=sql in the environment to get SQL queries
   native: true    // lets Sequelize know we can use pg-native for ~30% more speed (if you have issues with pg-native feel free to take this out and work it back in later when we have time to help)
 });
+
+module.exports = db;
+
+// // Now that db set up, set up user and campus models
+// const User = require('./models/user');
+// const Campus = require('./models/campus');
 
 // run our models file (makes all associations for our Sequelize objects)
 require('./models')
 
 // sync the db, creating it if necessary
-function sync(force=false, retries=0, maxRetries=5) {
+function sync(force=true, retries=0, maxRetries=5) {
   return db.sync({force})
   .then(ok => console.log(`Synced models to db ${connectionString}`))
   .catch(fail => {
     // Don't do this auto-create nonsense in prod, or
-    // if we've retried too many times. 
-    if (process.env.NODE_ENV === 'production' || retries > maxRetries) {
-      console.error(chalk.red(`********** database error ***********`))
-      console.error(chalk.red(`    Couldn't connect to ${connectionString}`))
-      console.error()
-      console.error(chalk.red(fail))
-      console.error(chalk.red(`*************************************`))
-      return
-    }
+    // if we've retried too many times.
+    // if (process.env.NODE_ENV === 'production' || retries > maxRetries) {
+    //   console.error(chalk.red(`********** database error ***********`))
+    //   console.error(chalk.red(`    Couldn't connect to ${connectionString}`))
+    //   console.error()
+    //   console.error(chalk.red(fail))
+    //   console.error(chalk.red(`*************************************`))
+    //   return
+    // }
     // Otherwise, do this autocreate nonsense
     console.log(`${retries ? `[retry ${retries}]` : ''} Creating database ${name}...`)
     return new Promise((resolve, reject) =>
@@ -42,3 +48,4 @@ function sync(force=false, retries=0, maxRetries=5) {
 }
 
 db.didSync = sync();
+
