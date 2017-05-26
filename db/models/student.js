@@ -2,7 +2,7 @@
 var Sequelize = require('sequelize')
 var db = require('../_db')
 
-var User = db.define('user', {
+var Student = db.define('user', {
   name: {
     type: Sequelize.STRING,
     allowNull: false
@@ -32,4 +32,4 @@ Association:
 students manyToOne relationship
 
 */
-module.exports = User;
+module.exports = Student;
