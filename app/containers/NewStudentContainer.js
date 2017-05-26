@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import store from '../store';
 import NewStudent from '../components/NewStudent';
 
-import {addStudent} from '../action-creators/students';
+import {addNewStudent} from '../action-creators/students';
 
 
 export default class NewStudentContainer extends Component {
@@ -14,7 +14,6 @@ export default class NewStudentContainer extends Component {
       emailInput: ''
     }, store.getState());
 
-    this.handleChange = this.handleChange.bind(this);
     this.handleName = this.handleName.bind(this);
     this.handleEmail = this.handleEmail.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -30,40 +29,32 @@ export default class NewStudentContainer extends Component {
   componentWillUnmount() {
     this.unsubscribe();
   }
-  handleChange(event) {
-    const value = event.target.value;
-    this.setState({
-      inputValue: value
-    })
-  }
 
   handleName(name) {
     this.setState({
-      inputName: name
+      nameInput: name
     })
   }
 
   handleEmail(email) {
     this.setState({
-      inputEmail: email
+      emailInput: email
     })
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    if(this.state.inputName && this.state.handleEmail) {
-      store.dispatch(addStudent())
+    if(this.state.nameInput && this.state.emailInput) {
+      store.dispatch(addNewStudent(this.state.nameInput, this.state.emailInput))
     }
   }
 
   render() {
-    const inputValue = this.state.inputValue;
     return (
       <NewStudent
-        handleChange={this.handleChange}
-        handleName={this.handleName}
-        handleEmail={this.handleEmail}
         handleSubmit={this.handleSubmit}
+        setNameInput={this.handleName}
+        setEmailInput={this.handleEmail}
       />
     )
   }

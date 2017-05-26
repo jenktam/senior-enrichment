@@ -4,14 +4,10 @@ const NewStudent = (props) => {
 
   const nameInput = props.nameInput;
   const emailInput = props.emailInput;
-
-  const artistChange = e => props.setArtist(e.target.value);
-  const songChange = e => props.setSong(e.target.value);
-
-  const handleChange = props.handleChange;
-  const handleName = props.handleName;
-  const handleEmail = props.handleEmail;
   const handleSubmit = props.handleSubmit;
+
+  const nameChange = e => props.setNameInput(e.target.value);
+  const emailChange = e => props.setEmailInput(e.target.value);
 
 
   return(
@@ -27,7 +23,7 @@ const NewStudent = (props) => {
               <input
                 className="form-control"
                 type="text"
-                onChange={handleName}
+                onChange={nameChange}
                 value={nameInput}
               />
             </div>
@@ -37,7 +33,7 @@ const NewStudent = (props) => {
               <input
                 className="form-control"
                 type="text"
-                onChange={handleEmail}
+                onChange={emailChange}
                 value={emailInput}
               />
             </div>

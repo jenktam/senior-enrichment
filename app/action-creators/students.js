@@ -7,16 +7,20 @@ export const addStudent = student => ({
 });
 
 
-export const addNewStudent = studentName => {
-
-  return (dispatch, getState) => {
-
-    return axios.post('/api/students', {name: studentName})
-      .then(res => res.data)
-      .then(student => {
-        dispatch(addStudent(student));
-        hashHistory.push(`/students/${student.id}`)
-      });
+export const addNewStudent = (studentName, studentEmail) => {
+  console.log("a")
+  return (dispatch) => {
+    console.log("b")
+    return axios.post('/api/students', {
+      name: studentName,
+      email: studentEmail
+    })
+    .then(res => res.data)
+    .then(student => {
+      console.log("AJAX Student", student);
+      dispatch(addStudent(res.data));
+      hashHistory.push(`/students/${student.id}`)
+    });
 
   };
 
