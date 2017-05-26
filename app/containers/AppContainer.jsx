@@ -60,6 +60,7 @@ export default class App extends Component {
     axios.get(`/api/campuses/${campusId}`)
       .then(res => res.data)
       .then(campus => {
+        console.log("ajax campus", campus);
         this.setState({
         selectedCampus: campus
       })

@@ -24,7 +24,9 @@ router.param('studentId', (req, res, next, studentId) => {
 
 // GET api/students route
 router.get('/', (req, res, next) => {
-  Student.findAll()
+  Student.findAll({
+    include: [Campus]
+  })
   .then(res.status(200).send.bind(res))
   .catch(next);
 });

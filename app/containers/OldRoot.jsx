@@ -23,9 +23,6 @@ export default class WinterJokes extends Component {
   }
 
   render() {
-    // <Link to="/users" activeClassName="active">users</Link>
-
-
     if (!this.state) { return null }
 
     const {joke, answered} = this.state

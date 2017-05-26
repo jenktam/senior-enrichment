@@ -24,7 +24,9 @@ router.param('campusId', (req, res, next, campusId) => {
 
 // GET all campuses
 router.get('/', (req, res, next) => {
-  Campus.findAll({})
+  Campus.findAll({
+    include: [Student]
+  })
   .then(res.status(200).send.bind(res))
   .catch(next);
 })

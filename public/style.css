@@ -91,12 +91,8 @@ thead {
   font-size: 20px;
 }
 
-tr {
-  background: url(https://jackrugile.com/images/misc/noise-diagonal.png);
-}
-
 tr:nth-child(odd) td {
-    background: #f1f1f1 url(https://jackrugile.com/images/misc/noise-diagonal.png);
+    background: #f1f1f1;
 }
 
 .addStudent {

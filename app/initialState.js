@@ -2,7 +2,9 @@ const initialState = {
   campuses: [],
   selectedCampus: {},
   students: [],
-  selectedStudent: {},
+  selectedStudent: {
+    campus: {}
+  },
   // showCampusView: true
 }
 

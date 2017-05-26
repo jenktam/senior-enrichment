@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import { Link } from 'react-router';
+import { Link } from 'react-router';
 import CampusList from '../components/CampusList';
 
 
@@ -8,7 +8,7 @@ class Student extends Component {
   componentDidMount() {
     const selectStudent = this.props.selectStudent;
     const studentId = this.props.routeParams.studentId;
-
+    console.log("students didmount");
     selectStudent(studentId);
   }
 
@@ -23,7 +23,7 @@ class Student extends Component {
         <h3>Student Name: { student.name }</h3>
         <h3>Student Email: { student.email }</h3>
         <CampusList
-          campuses={ student.campus }
+          campus={ student.campus }
         />
     </div>
     )
@@ -31,9 +31,3 @@ class Student extends Component {
 }
 
 export default Student;
-
-
-/*
-<Link to={`/campuses/${student.campusId}`} >Student Campus</Link>
-        <h3>Student Campus: { student.campus }</h3>
-*/

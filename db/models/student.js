@@ -2,7 +2,7 @@
 var Sequelize = require('sequelize')
 var db = require('../_db')
 
-var Student = db.define('user', {
+var Student = db.define('student', {
   name: {
     type: Sequelize.STRING,
     allowNull: false

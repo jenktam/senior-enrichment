@@ -4,7 +4,6 @@ import { Link } from 'react-router';
 const Students = (props) => {
 
   const students = props.students;
-  console.log("students!", students);
   const selectStudent = props.selectStudent;
 
   const showStudents = students.map(student => (
@@ -36,8 +35,12 @@ const Students = (props) => {
           students && students.map(student => (
             <tr key={ student.id }>
               <td>{ student.id }</td>
-              <td>{ student.name }</td>
-              <td>CampusId. Should show Campus Name { student.campusId }</td>
+              <td>
+                <Link to={`/students/${student.id}`}>
+                  { student.name }
+                </Link>
+              </td>
+              <td>{ student.campus.name }</td>
               <td>
                 <button className="btn btn-default btn-xs">
                   <span>X</span>
@@ -51,10 +54,9 @@ const Students = (props) => {
   )
 
   const addStudent = (
-    <button className="btn btn-default btn-xs" onClick={() => addStudent(student)}>
-      <Link to='/addStudent'
-      <span className="glyphicon glyphicon-plus"></span>
-    </button>
+    <Link className="btn btn-default btn-xs" to="/new-student">
+      <span className="glyphicon glyphicon-plus"> Student</span>
+    </Link>
   )
 
   return (

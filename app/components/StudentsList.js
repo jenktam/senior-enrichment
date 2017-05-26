@@ -7,7 +7,7 @@ const StudentsList = (props) => {
 
   const allStudents = students && students.map(student => (
           <div className="col-xs-4" key={ student.id }>
-            <Link className="thumbnail" to={`/students/${students.id}`}>
+            <Link className="thumbnail" to={`/students/${student.id}`}>
               <img src={ student.image } />
               <div className="caption">
                 <h5>

@@ -18,7 +18,7 @@ import NotFound from './components/NotFound';
 
 // Containers
 import AppContainer from './containers/AppContainer'
-
+import NewStudentContainer from './containers/NewStudentContainer';
 
 render (
   <Provider store={ store }>
@@ -30,6 +30,9 @@ render (
         <Route path="/students/:studentId" component={ Student } />
         <Route path="/students/StudentsList" component={ StudentsList } />
         <Route path="/campuses/CampusList" component={ CampusList } />
+
+        <Route path="/new-student" component={NewStudentContainer} />
+
         <Route path="*" component={NotFound} />
         <IndexRedirect to="/campuses" />
       </Route>
