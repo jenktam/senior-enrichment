@@ -5,9 +5,8 @@ const StudentsList = (props) => {
   const students = props.students;
   const selectStudent = props.selectStudent;
 
-  const allStudents = students &&students.map(student => (
+  const allStudents = students && students.map(student => (
           <div className="col-xs-4" key={ student.id }>
-          /* Needs this a link to redirect to a single student's info page' */
             <Link className="thumbnail" to={`/students/${students.id}`}>
               <img src={ student.image } />
               <div className="caption">

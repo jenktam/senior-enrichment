@@ -13,6 +13,7 @@ import Campus from './components/Campus';
 import Students from './components/Students';
 import Student from './components/Student';
 import StudentsList from './components/StudentsList';
+import CampusList from './components/CampusList';
 import NotFound from './components/NotFound';
 
 // Containers
@@ -28,6 +29,7 @@ render (
         <Route path="/students" component={ Students } />
         <Route path="/students/:studentId" component={ Student } />
         <Route path="/students/StudentsList" component={ StudentsList } />
+        <Route path="/campuses/CampusList" component={ CampusList } />
         <Route path="*" component={NotFound} />
         <IndexRedirect to="/campuses" />
       </Route>

@@ -3,7 +3,7 @@ const initialState = {
   selectedCampus: {},
   students: [],
   selectedStudent: {},
-  showCampusView: true
+  // showCampusView: true
 }
 
 export default initialState;

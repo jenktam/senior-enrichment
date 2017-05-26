@@ -6,9 +6,10 @@ import initialState from '../initialState';
 import Sidebar from '../components/Sidebar';
 import Campuses from '../components/Campuses';
 import Campus from '../components/Campus';
-import StudentsList from '../components/StudentsList';
 import Students from '../components/Students';
 import Student from '../components/Student';
+import StudentsList from '../components/StudentsList';
+import CampusList from '../components/CampusList';
 
 // CONTAINERS
 import SidebarContainer from '../containers/SidebarContainer';
@@ -59,53 +60,21 @@ export default class App extends Component {
     axios.get(`/api/campuses/${campusId}`)
       .then(res => res.data)
       .then(campus => {
-        console.log("campus:", campus);
         this.setState({
         selectedCampus: campus
       })
     });
   }
 
-  // deselectCampus () {
-  //   this.setState({ selectedCampus: {}});
-  // }
-
-  // showAllStudents () {
-  //   axios.get(`/api/students/`)
-  //     .then(res => {
-  //       return res.data;
-  //   })
-  //     .then(students => {
-  //         console.log("allStudents:", students);
-  //     this.setState({
-  //       students: students
-  //     })
-  //   });
-  // }
-
   // check student express route if broken
   selectStudent (studentId) {
-    Promise.all([
-      axios.get(`/api/students/${studentId}`),
-      // can navigate to view that student's Single Campus from Single Student
-      // must build express route
-      axios.get(`/api/students/${studentId}/campuses`)
-    ])
-      .then(res => res.map(r => r.data))
-      .then(data => this.onLoadStudent(...data));
+    axios.get(`/api/students/${studentId}`)
+    .then(res => res.data)
+    .then(student => this.setState({
+      selectedStudent: student
+    }))
   }
 
-onLoadStudent(student, campus) {
-  student.campus = campus;
-
-  this.setState({
-    selectedStudent: student
-  });
-}
-
-  // deselectStudent () {
-  //   this.setState({ deselectStudent: {}});
-  // }
 
   render() {
 
@@ -118,7 +87,6 @@ onLoadStudent(student, campus) {
       <div id="main" className="container-fluid">
         <div className="col-xs-2">
           <Sidebar
-          deselectCampus={this.deselectCampus}
           showAllStudents={this.showAllStudents}
           showStudentsView={!this.state.showCampusView}
            />

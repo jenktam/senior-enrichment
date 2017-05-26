@@ -12,7 +12,7 @@ class Campus extends Component {
 
   render(){
     const campus = this.props.selectedCampus;
-
+    console.log("campus in campus", campus)
     return (
       <div>
         <h3>SelectedCampus View:</h3>
@@ -27,5 +27,3 @@ class Campus extends Component {
 }
 
 export default Campus;
-
-//      selectStudent={ props.selectstudent}
