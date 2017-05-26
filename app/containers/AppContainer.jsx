@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import initialState from '../initialState';
 import axios from 'axios';
+import initialState from '../initialState';
 
 // COMPONENTS
 import Sidebar from '../components/Sidebar';
@@ -16,17 +16,18 @@ import SidebarContainer from '../containers/SidebarContainer';
 export default class App extends Component {
   constructor (props) {
     super(props);
-
     this.state = initialState;
 
     this.selectCampus = this.selectCampus.bind(this);
-    this.deselectCampus = this.deselectCampus.bind(this);
     this.selectStudent = this.selectStudent.bind(this);
-    this.deselectStudent = this.deselectStudent.bind(this);
-    this.showAllStudents = this.showAllStudents.bind(this);
+
+    // this.showAllStudents = this.showAllStudents.bind(this);
+    // this.deselectCampus = this.deselectCampus.bind(this);
+    // this.deselectStudent = this.deselectStudent.bind(this);
   }
 
   componentDidMount() {
+
     Promise.all([
       axios.get('/api/campuses'),
       axios.get('/api/students')
@@ -56,74 +57,103 @@ export default class App extends Component {
 
   selectCampus (campusId) {
     axios.get(`/api/campuses/${campusId}`)
-      .then(res => {
-        return res.data;
-    })
+      .then(res => res.data)
       .then(campus => {
-          console.log("campus:", campus);
+        console.log("campus:", campus);
         this.setState({
         selectedCampus: campus
       })
     });
   }
 
-  deselectCampus () {
-    this.setState({ selectedCampus: {}});
-  }
+  // deselectCampus () {
+  //   this.setState({ selectedCampus: {}});
+  // }
 
-  showAllStudents () {
-    axios.get(`/api/students/`)
-      .then(res => {
-        return res.data;
-    })
-      .then(students => {
-          console.log("allStudents:", students);
-    });
-  }
+  // showAllStudents () {
+  //   axios.get(`/api/students/`)
+  //     .then(res => {
+  //       return res.data;
+  //   })
+  //     .then(students => {
+  //         console.log("allStudents:", students);
+  //     this.setState({
+  //       students: students
+  //     })
+  //   });
+  // }
 
+  // check student express route if broken
   selectStudent (studentId) {
-    axios.get(`/api/students/${studentId}`)
-      .then(res => {
-        return res.data;
-    })
-      .then(student => {
-          console.log("student:", student);
-        this.setState({
-        selectedStudent: student
-      })
-    });
+    Promise.all([
+      axios.get(`/api/students/${studentId}`),
+      // can navigate to view that student's Single Campus from Single Student
+      // must build express route
+      axios.get(`/api/students/${studentId}/campuses`)
+    ])
+      .then(res => res.map(r => r.data))
+      .then(data => this.onLoadStudent(...data));
   }
 
-  deselectStudent () {
-    this.setState({ deselectStudent: {}});
-  }
+onLoadStudent(student, campus) {
+  student.campus = campus;
+
+  this.setState({
+    selectedStudent: student
+  });
+}
+
+  // deselectStudent () {
+  //   this.setState({ deselectStudent: {}});
+  // }
 
   render() {
+
+    const props = Object.assign({}, this.state, {
+      selectCampus: this.selectCampus,
+      selectStudent: this.selectStudent
+    })
+
     return (
       <div id="main" className="container-fluid">
         <div className="col-xs-2">
           <Sidebar
           deselectCampus={this.deselectCampus}
           showAllStudents={this.showAllStudents}
+          showStudentsView={!this.state.showCampusView}
            />
         </div>
         <div className="col-xs-10">
-          More stuff later.
-          Should show home page with all campuses info
           {
-            this.state.selectedCampus.id ?
-            <Campus
-              selectedCampus={ this.state.selectedCampus }
-              selectStudent={this.selectStudent}
-            /> :
-            <Campuses
-              campuses={ this.state.campuses }
-              selectCampus={this.selectCampus}
-           />
+            this.props.children && React.cloneElement(this.props.children, props)
           }
+        </div>
+      </div>
+    );
+  }
+}
 
-          show students
-          {
+
+//           <StudentsList
+          //   students = {this.state.students}
+          //   selectStudent={ this.selectStudent }
+          // />
+
+// inside jof col-xs-10 div
+/*
+ More stuff later.
+          Should show home page with all campuses info{
+            this.state.showCampusView ?
+              this.state.selectedCampus.id ?
+              <Campus
+                selectedCampus={ this.state.selectedCampus }
+                selectStudent={this.selectStudent}
+              /> :
+              <Campuses
+                campuses={ this.state.campuses }
+                selectCampus={this.selectCampus}
+            />
+            :
             this.state.selectedStudent.id ?
             <Student
               selectedStudent={ this.state.selectedStudent }
@@ -134,13 +164,4 @@ export default class App extends Component {
               selectStudent={ this.selectStudent }
             />
           }
-        </div>
-      </div>
-    );
-  }
-}
-
-//           <StudentsList
-          //   students = {this.state.students}
-          //   selectStudent={ this.selectStudent }
-          // />
+*/

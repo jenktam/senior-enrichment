@@ -1,21 +1,31 @@
-import React from 'react';
+import React, { Component } from 'react';
 import StudentsList from '../components/StudentsList';
 
-const Campus = (props) => {
+class Campus extends Component {
 
-  const campus = props.selectedCampus;
+  componentDidMount() {
+    const selectCampus = this.props.selectCampus;
+    const campusId = this.props.routeParams.campusId;
 
-  return (
-    <div>
-      <h3>SelectedCampus View:</h3>
-      <h3>{ campus.name } Campus</h3>
-      <img src={ campus.image } className="img-thumbnail" />
-      <StudentsList
-        students={ campus.users }
-        selectStudent={ props.selectstudent}
-      />
+    selectCampus(campusId);
+  }
+
+  render(){
+    const campus = this.props.selectedCampus;
+
+    return (
+      <div>
+        <h3>SelectedCampus View:</h3>
+        <h3>{ campus.name } Campus</h3>
+        <img src={ campus.image } className="img-thumbnail" />
+        <StudentsList
+          students={ campus.users }
+        />
     </div>
-  )
+    )
+  }
 }
 
 export default Campus;
+
+//      selectStudent={ props.selectstudent}

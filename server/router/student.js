@@ -6,8 +6,8 @@ const Campus  = require('../../db/models/campus');
 // ROUTER PARAMS
 // -------------------------------------
 
-router.param('id', (req, res, next, id) => {
-  Student.findById(id, {
+router.param('studentId', (req, res, next, studentId) => {
+  Student.findById(studentId, {
     include: [Campus]
   })
   .then(function(student) {
@@ -37,12 +37,12 @@ router.post('/', (req, res, next) => {
 });
 
 // GET student by id
-router.get('/:id', (req, res, next) => {
+router.get('/:studentId', (req, res, next) => {
   res.send(req.student);
 });
 
 // PUT updated student info for one student
-router.put('/:id', (req, res, next) => {
+router.put('/:studentId', (req, res, next) => {
   req.student.update(req.body)
   .then(updatedStudent => {
     res.send(updatedStudent)
@@ -51,10 +51,18 @@ router.put('/:id', (req, res, next) => {
 });
 
 // DELETE a student
-router.delete('/:id', (req, res, next) => {
+router.delete('/:studentId', (req, res, next) => {
   req.student.destroy()
   .then( () => res.status(204).end())
   .catch(next);
 })
+
+// GET single campus associated to studentId
+// CHECK selecStudent AJAX call in AppContainer if doesn't work!!
+router.get('/:studentId/campuses', (req, res, next) => {
+  req.student.getCampus()
+  .then(campus => res.json(campus))
+  .catch(next);
+});
 
 module.exports = router;
