@@ -5,7 +5,7 @@ const Students = (props) => {
 
   const students = props.students;
   const selectStudent = props.selectStudent;
-
+  console.log("students should have student.campus.name", students);
   const showStudents = students.map(student => (
           <div className="col-xs-4" key={ student.id }>
             <Link to={`/students/${student.id}`}>

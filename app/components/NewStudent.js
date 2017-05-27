@@ -1,9 +1,11 @@
 import React from 'react';
+import Campuses from '../components/Campuses';
 
 const NewStudent = (props) => {
 
   const nameInput = props.nameInput;
   const emailInput = props.emailInput;
+
   const handleSubmit = props.handleSubmit;
 
   const nameChange = e => props.setNameInput(e.target.value);
@@ -37,6 +39,20 @@ const NewStudent = (props) => {
                 value={emailInput}
               />
             </div>
+
+            <div className="col-xs-10">
+              <label className="form-label">Type</label>
+              <select
+                className="form-select"
+                name="type"
+                // onChange={this.handleInputChange}
+                // value={this.state.type}
+              >
+                  <option>Byram Hills</option>
+                  <option>Coman Hills</option>
+              </select>
+            </div>
+
           </div>
           <div className="form-group">
             <div className="col-xs-10 col-xs-offset-2">

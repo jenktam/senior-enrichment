@@ -15,11 +15,9 @@ export const addNewStudent = (studentName, studentEmail) => {
       name: studentName,
       email: studentEmail
     })
-    .then(res => res.data)
     .then(student => {
       console.log("AJAX Student", student);
-      dispatch(addStudent(res.data));
-      hashHistory.push(`/students/${student.id}`)
+      dispatch(addStudent(student));
     });
 
   };
