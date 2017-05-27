@@ -10,6 +10,7 @@ import Students from '../components/Students';
 import Student from '../components/Student';
 import StudentsList from '../components/StudentsList';
 import CampusList from '../components/CampusList';
+import NewStudent from '../components/NewStudent';
 
 // CONTAINERS
 import SidebarContainer from '../containers/SidebarContainer';
@@ -101,36 +102,3 @@ export default class App extends Component {
     );
   }
 }
-
-
-//           <StudentsList
-          //   students = {this.state.students}
-          //   selectStudent={ this.selectStudent }
-          // />
-
-// inside jof col-xs-10 div
-/*
- More stuff later.
-          Should show home page with all campuses info{
-            this.state.showCampusView ?
-              this.state.selectedCampus.id ?
-              <Campus
-                selectedCampus={ this.state.selectedCampus }
-                selectStudent={this.selectStudent}
-              /> :
-              <Campuses
-                campuses={ this.state.campuses }
-                selectCampus={this.selectCampus}
-            />
-            :
-            this.state.selectedStudent.id ?
-            <Student
-              selectedStudent={ this.state.selectedStudent }
-              selectedCampus={this.selectedCampus}
-            /> :
-            <Students
-              students={ this.state.students }
-              selectStudent={ this.selectStudent }
-            />
-          }
-*/

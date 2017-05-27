@@ -1,18 +1,37 @@
 import React from 'react';
 import Campuses from '../components/Campuses';
 
+import {addNewCampus, getAllCampuses} from '../action-creators/campuses';
+
 const NewStudent = (props) => {
+
+  const campuses = props.campuses;
 
   const nameInput = props.nameInput;
   const emailInput = props.emailInput;
+  const campusInput = props.campusInput;
 
   const handleSubmit = props.handleSubmit;
 
   const nameChange = e => props.setNameInput(e.target.value);
   const emailChange = e => props.setEmailInput(e.target.value);
+  const campusChange = e => props.setCampusInput(e.target.value);
 
+  const getCampuses = () => {
+    return (dispatch) => {
+      return axios.get('/api/campuses')
+      .then(res => {
+        console.log("campuses in axios", res);
+        dispatch(getCampuses(res.data))
+      })
+    }
+  }
 
-  return(
+  const showCampuses = campuses && campuses.map(campus => (
+    <option value={`${campus.id}`} key={campus.id} >{ campus.name }</option>
+  ))
+
+  return (
     <div className="well" style={{marginTop: '20px'}}>
       <form className="form-horizontal" onSubmit={handleSubmit}>
         <fieldset>
@@ -42,14 +61,9 @@ const NewStudent = (props) => {
 
             <div className="col-xs-10">
               <label className="form-label">Type</label>
-              <select
-                className="form-select"
-                name="type"
-                // onChange={this.handleInputChange}
-                // value={this.state.type}
+              <select onChange={campusChange}
               >
-                  <option>Byram Hills</option>
-                  <option>Coman Hills</option>
+              {showCampuses}
               </select>
             </div>
 

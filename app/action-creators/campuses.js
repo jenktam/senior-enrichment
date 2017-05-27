@@ -18,7 +18,7 @@ export const addNewCampus = (campusName, campusPhoto) => {
     console.log("campus b")
     return axios.post('/api/campuses', {
       name: campusName,
-      email: campusEmail
+      email: campusPhoto
     })
     .then(campus => {
       console.log("AJAX campus", campus);
@@ -33,6 +33,7 @@ export const getAllCampuses = () => {
   return (dispatch) => {
     return axios.get('/api/campuses')
     .then(res => {
+      console.log("campuses in axios", res);
       dispatch(getCampuses(res.data))
     })
   }
